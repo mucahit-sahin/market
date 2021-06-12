@@ -2,15 +2,17 @@ import React from 'react';
 import auth from '@react-native-firebase/auth';
 
 import SignNavigation from './Navigations/SignNavigation';
-import {TouchableOpacity, TouchableOpacityBase, View} from 'react-native';
-import {Text} from 'native-base';
 import TabNavigation from './Navigations/TabNavigation';
+import {useDispatch} from 'react-redux';
+import {setUserAction} from './Store/Actions/authActions';
 
 const App = () => {
   const [initializing, setInitializing] = React.useState(true);
   const [user, setUser] = React.useState();
+  const dispatch = useDispatch();
   // Handle user state changes
   function onAuthStateChanged(user) {
+    dispatch(setUserAction(user));
     setUser(user);
     if (initializing) setInitializing(false);
   }
